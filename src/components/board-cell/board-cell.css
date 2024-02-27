@@ -1,0 +1,93 @@
+.board__cell {
+  min-width: 20px; /* see board.css min-width / DEFAULT_CELLS_NUMBER */
+  min-height: 20px; /* see board.css min-height / DEFAULT_CELLS_NUMBER */
+  max-width: 50px; /* see board.css max-width / DEFAULT_CELLS_NUMBER */
+  max-height: 50px; /* see board.css max-height / DEFAULT_CELLS_NUMBER */
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  line-height: 20px;
+  color: transparent;
+  font-size: 14px;
+  position: absolute;
+}
+
+.board__cell--wall-top {
+  background-image: url("/tiles/block_top_winter.webp");
+  background-size: cover;
+}
+
+.board__cell--wall-top--summer {
+  background-image: url("/tiles/block_top_summer.webp");
+}
+
+.board__cell--wall-mid {
+  background-image: url("/tiles/block_middle_winter.webp");
+  background-size: cover;
+}
+
+.board__cell--wall-mid--summer {
+  background-image: url("/tiles/block_middle_summer.webp");
+}
+
+.board__cell--drone {
+  background-image: url("/tiles/drone.webp");
+  background-size: cover;
+  animation: vertical_wave 1s infinite;
+}
+
+.board__cell--pris,
+.board__cell--priser {
+  background-image: url("/tiles/target.webp");
+  background-size: cover;
+  animation: vertical_wave 1s infinite;
+}
+
+.board__cell--pris--summer,
+.board__cell--priser--summer {
+  background-image: url("/tiles/target_summer.webp");
+  background-size: cover;
+  animation: vertical_wave 1s infinite;
+}
+
+@keyframes vertical_wave {
+  0% {translate: 0 0}
+  12% {translate: 0 -1px}
+  25% {translate: 0 -2px}
+  33% {translate: 0 -1px}
+  50% {translate: 0 0}
+  62% {translate: 0 1px}
+  75% {translate: 0 2px}
+  88% {translate: 0 1px}
+  100% {translate: 0 0}
+}
+
+@keyframes reached {
+  0% {scale: 100%}
+  12% {scale: 110%}
+  25% {scale: 120%}
+  33% {scale: 125%}
+  50% {scale: 110%}
+  62% {scale: 80%}
+  75% {scale: 40%}
+  88% {scale: 10%}
+  100% {scale: 0%}
+}
+
+@keyframes fly-right {
+  0% {transform: rotate(0deg)}
+  12% {transform: rotate(10deg)}
+  25% {transform: rotate(15deg)}
+  75% {transform: rotate(15deg)}
+  88% {transform: rotate(10deg)}
+  100% {transform: rotate(0deg)}
+}
+
+@keyframes fly-left {
+  0% {transform: rotate(0deg)}
+  12% {transform: rotate(-10deg)}
+  25% {transform: rotate(-15deg)}
+  75% {transform: rotate(-15deg)}
+  88% {transform: rotate(-10deg)}
+  100% {transform: rotate(0deg)}
+}

@@ -1,0 +1,17 @@
+.board {
+  min-width: 200px; /* MIN_BOARD_SIZE */
+  min-height: 200px; /* MIN_BOARD_SIZE */
+  max-width: 500px; /* MAX_BOARD_SIZE */
+  max-height: 500px; /* MAX_BOARD_SIZE */
+  width: 200px;
+  height: 200px;
+  background-color: white;
+  position: relative;
+  background-image: url("/bg/background_winter.webp");
+  background-size: cover;
+  overflow: hidden;
+}
+
+.board--summer {
+  background-image: url("/bg/background_summer.webp");
+}
