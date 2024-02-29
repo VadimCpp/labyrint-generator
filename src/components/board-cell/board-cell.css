@@ -1,8 +1,8 @@
 .board__cell {
   min-width: 20px; /* see board.css min-width / DEFAULT_CELLS_NUMBER */
   min-height: 20px; /* see board.css min-height / DEFAULT_CELLS_NUMBER */
-  max-width: 50px; /* see board.css max-width / DEFAULT_CELLS_NUMBER */
-  max-height: 50px; /* see board.css max-height / DEFAULT_CELLS_NUMBER */
+  max-width: 80px; /* see board.css max-width / DEFAULT_CELLS_NUMBER */
+  max-height: 80px; /* see board.css max-height / DEFAULT_CELLS_NUMBER */
   width: 20px;
   height: 20px;
   text-align: center;

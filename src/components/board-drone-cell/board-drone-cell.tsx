@@ -6,7 +6,7 @@ interface BoardDroneCellProps {
   row: number;
   item: string;
   size: number;
-  speed: number;
+  speed: number | string;
   direction: number;
 }
 

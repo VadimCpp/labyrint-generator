@@ -1,5 +1,8 @@
 // Layout and game logic
 export const DEFAULT_CELLS_NUMBER = 10
+export const MIN_CELLS_NUMBER = 5
+export const MAX_CELLS_NUMBER = 20
+export const DRONE_SPEED = 50; // ms per cell
 
 // Enums
 export const CellType = {

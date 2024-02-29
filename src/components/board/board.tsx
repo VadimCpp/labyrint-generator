@@ -1,21 +1,18 @@
-import { LEVELS, CellType, DEFAULT_CELLS_NUMBER } from "../../const";
+import { CellType } from "../../const";
+import { Level, Direction, Position } from "../../types";
 import BoardCell from "../board-cell/board-cell";
 import BoardDroneCell from "../board-drone-cell/board-drone-cell";
 import BoardTargetCell from "../board-target-cell/board-target-cell";
 import "./board.css";
 
-const isValidLevel = (level: number) => (Number.isInteger(level) && level >= 0 && level < LEVELS.length);
 const generateKey = (r: number, c: number) => (`key-${r}-${c}`);
 
 interface BoardProps {
-  level: number;
+  level: Level;
   drone: {
-    position: {
-      row: number;
-      col: number;
-    };
-    speed: number;
-    direction: number;
+    position: Position | null;
+    speed: number | string;
+    direction: Direction | null;
   };
   goal: {
     getTargetState: (r: number, c: number) => boolean;
@@ -24,12 +21,8 @@ interface BoardProps {
 }
 
 const Board = ({ level, drone, goal, boardSize }: BoardProps) => {
-  if (!isValidLevel(level)) {
-    return null;
-  }
-
-  const cellSize = boardSize / DEFAULT_CELLS_NUMBER;
-  const map = LEVELS[level].map;
+  const cellSize = boardSize / Number(level.map.length - 2);
+  const map = level.map;
 
   return (
     <div 
@@ -55,12 +48,12 @@ const Board = ({ level, drone, goal, boardSize }: BoardProps) => {
                   cell = (
                     <BoardDroneCell 
                       key={generateKey(rIdx, cIdx)}
-                      row={drone.position.row}
-                      col={drone.position.col}
+                      row={drone.position?.row || 0}
+                      col={drone.position?.col || 0}
                       item={item}
                       size={cellSize}
                       speed={drone.speed}
-                      direction={drone.direction}
+                      direction={drone.direction || Direction.UP}
                     />
                   );
                 } else if (CellType.PRIS === item || CellType.PRISER === item) {
