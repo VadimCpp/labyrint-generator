@@ -1,30 +1,36 @@
 # React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> Demo: https://lgacc.z1.web.core.windows.net/
 
-Currently, two official plugins are available:
+This template should help get you started developing with React, TypeScript and Vite in no time.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Get started
 
-## Expanding the ESLint configuration
+Install dependencies:
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+```bash
+npm install
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Start the development server:
+
+```bash
+npm run dev
+```
+
+Visit `http://localhost:3000` and you're ready to go!
+
+## Building and running in production mode
+
+To build the application for production, use the build command. A production build will be placed in `dist` folder.
+
+```bash
+az group create --name labyrint-generator --location norwayeast
+az group list --output table
+az storage account create --name lgacc --resource-group labyrint-generator --location norwayeast --sku Standard_LRS 
+az storage blob service-properties update --account-name lgacc --static-website --index-document index.html
+az storage container list --account-name lgacc --output table
+npm run build
+az storage blob upload-batch --destination '$web' --type block --pattern '**' --account-name 'lgacc' --source dist
+az storage blob delete-batch --source '$web' --account-name 'lgacc'
+az storage account show --name lgacc --query "primaryEndpoints.web" --output tsv
