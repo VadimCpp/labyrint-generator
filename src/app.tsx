@@ -1,7 +1,9 @@
 import Board from './components/board/board'
 import { LEVELS, CellType } from './const'
+import { Direction } from './types';
 import { generateEmptyBoard, addCellToBoard } from './algorithm'
 import Solver from './components/solver/solver'
+import { solveLabyrint } from './components/solver/solver-logic'
 import './app.css'
 
 function getDroneStartPosition(level: number): null | { row: number; col: number } {
@@ -27,48 +29,52 @@ function getDroneStartPosition(level: number): null | { row: number; col: number
 }
 
 function App() {
-  let boardHorizontal = generateEmptyBoard(10)
-  boardHorizontal = addCellToBoard(boardHorizontal, 1, 1, CellType.DRONE)
-  boardHorizontal = addCellToBoard(boardHorizontal, 1, 10, CellType.PRIS)
+  let boardClockwise = generateEmptyBoard(10)
+  boardClockwise = addCellToBoard(boardClockwise, 1, 1, CellType.DRONE)
+  boardClockwise = addCellToBoard(boardClockwise, 1, 10, CellType.PRIS)
 
-  let boardVertical = generateEmptyBoard(10)
-  boardVertical = addCellToBoard(boardVertical, 1, 1, CellType.DRONE)
-  boardVertical = addCellToBoard(boardVertical, 10, 1, CellType.PRIS)
-
-  let boardDiagonal = generateEmptyBoard(10)
-  boardDiagonal = addCellToBoard(boardDiagonal, 1, 1, CellType.DRONE)
-  boardDiagonal = addCellToBoard(boardDiagonal, 10, 10, CellType.PRIS)
+  let boardCounterclockwise = generateEmptyBoard(10)
+  boardCounterclockwise = addCellToBoard(boardCounterclockwise, 1, 1, CellType.DRONE)
+  boardCounterclockwise = addCellToBoard(boardCounterclockwise, 10, 1, CellType.PRIS)
 
   return (
     <main>
       <h1 className="title">Labyrint Generator</h1>
 
-      {/* Find a Way */}
+      {/* Let's solve levels 1-2 */}
       <section className="levels">
-        <h2 className="levels__title">Find a Way</h2>
+        <h2 className="levels__title">Let's solve levels 1-2</h2>
+        <div className='levels__container labyrint-container'>
+          {
+            Array.from({ length: 2 }).map((_, idx) => (
+              <div key={idx} className="labyrint-container__item">
+                <h3 className='labyrint-container__title'>Level {idx + 1}</h3>
+                <Solver
+                  initialLevel={{map: LEVELS[idx].map, minMoves: 0, minTime: 0}}
+                  path={solveLabyrint(LEVELS[idx].map)}
+                />
+              </div>
+            ))
+          }
+        </div>
+      </section>
+      
+      {/* Let's move the drone */}
+      <section className="levels">
+        <h2 className="levels__title">Let's move the drone</h2>
         <div className='levels__container labyrint-container'>
           <div className="labyrint-container__item">
-            <h3 className='labyrint-container__title'>Horizontal</h3>
+            <h3 className='labyrint-container__title'>Clockwise</h3>
             <Solver
-              initialLevel={{map: boardHorizontal, minMoves: 0, minTime: 0}}
+              initialLevel={{map: boardClockwise, minMoves: 0, minTime: 0}}
+              path={[ Direction.RIGHT, Direction.DOWN, Direction.LEFT, Direction.UP ]}
             />
           </div>
           <div className="labyrint-container__item">
-            <h3 className='labyrint-container__title'>Vertical</h3>
-            <Board
-              level={{map: boardVertical, minMoves: 0, minTime: 0}}
-              drone={{ position: { row: 1, col: 1 }, speed: 0, direction: null }}
-              goal={{ getTargetState: () => false }}
-              boardSize={400}
-            />
-          </div>
-          <div className="labyrint-container__item">
-            <h3 className='labyrint-container__title'>Diagonal</h3>
-            <Board
-              level={{map: boardDiagonal, minMoves: 0, minTime: 0}}
-              drone={{ position: { row: 1, col: 1 }, speed: 0, direction: null }}
-              goal={{ getTargetState: () => false }}
-              boardSize={400}
+            <h3 className='labyrint-container__title'>Counterclockwise</h3>
+            <Solver
+              initialLevel={{map: boardCounterclockwise, minMoves: 0, minTime: 0}}
+              path={[ Direction.DOWN, Direction.RIGHT, Direction.UP, Direction.LEFT ]}
             />
           </div>
         </div>
@@ -95,7 +101,7 @@ function App() {
                   <Board
                     level={{map: board, minMoves: 0, minTime: 0}}
                     drone={{ position: { row: 1, col: 1 }, speed: 0, direction: null }}
-                    goal={{ getTargetState: () => false }}
+                    goal={null}
                     boardSize={400}
                   />
                 </div>
@@ -116,7 +122,7 @@ function App() {
                 <Board
                   level={LEVELS[idx]}
                   drone={{ position: getDroneStartPosition(idx) || { row: 0, col: 0}, speed: 0, direction: null }}
-                  goal={{ getTargetState: () => false }}
+                  goal={null}
                   boardSize={400}
                 />
               </div>

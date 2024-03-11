@@ -1,4 +1,3 @@
-import { TargetState } from "../../const";
 import BoardCell from "../board-cell/board-cell";
 
 interface BoardTargetCellProps {
@@ -6,12 +5,12 @@ interface BoardTargetCellProps {
   row: number;
   item: string;
   size: number;
-  state: boolean;
+  isReached: boolean;
 }
 
-const BoardTargetCell = ({ col, row, item, size, state }: BoardTargetCellProps) => {
+const BoardTargetCell = ({ col, row, item, size, isReached }: BoardTargetCellProps) => {
   let style = {};
-  if (state === TargetState.REACHED) {
+  if (isReached === true) {
     style = {
       animation: "reached 1s",
       opacity: 0,

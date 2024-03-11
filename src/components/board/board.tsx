@@ -1,5 +1,5 @@
 import { CellType } from "../../const";
-import { Level, Direction, Position } from "../../types";
+import { Level, Direction, Position, Goal } from "../../types";
 import BoardCell from "../board-cell/board-cell";
 import BoardDroneCell from "../board-drone-cell/board-drone-cell";
 import BoardTargetCell from "../board-target-cell/board-target-cell";
@@ -14,9 +14,7 @@ interface BoardProps {
     speed: number | string;
     direction: Direction | null;
   };
-  goal: {
-    getTargetState: (r: number, c: number) => boolean;
-  };
+  goal: Goal | null;
   boardSize: number;
 }
 
@@ -63,7 +61,7 @@ const Board = ({ level, drone, goal, boardSize }: BoardProps) => {
                     col={cIdx}
                     item={item}
                     size={cellSize}
-                    state={goal.getTargetState(rIdx, cIdx)}
+                    isReached={goal ? goal.isTargetReached({row: rIdx, col: cIdx}) : false}
                   />
                 } else {
                   cell = (

@@ -125,12 +125,12 @@ describe('calculateDroneSpeed', () => {
   it('should return the correct speed', () => {
     const dronePosition = { row: 3, col: 3 }
     const newDronePosition = { row: 1, col: 3 }
-    expect(calculateDroneSpeed(dronePosition, newDronePosition)).toStrictEqual(200)
+    expect(calculateDroneSpeed(dronePosition, newDronePosition)).toStrictEqual("100ms")
   })
 
   it('should return the correct speed', () => {
     const dronePosition = { row: 3, col: 1 }
     const newDronePosition = { row: 3, col: 4 }
-    expect(calculateDroneSpeed(dronePosition, newDronePosition)).toStrictEqual(250)
+    expect(calculateDroneSpeed(dronePosition, newDronePosition)).toStrictEqual("150ms")
   })
 })

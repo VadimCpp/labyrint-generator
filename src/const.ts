@@ -14,10 +14,7 @@ export const CellType = {
 	PRISER: "f",
 	DRONE: "p"
 }
-export const TargetState = {
-	NOT_REACHED: false,
-	REACHED: true
-}
+
 export const MoveDirection = {
 	UP: 38,
 	DOWN: 40,
