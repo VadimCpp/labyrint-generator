@@ -1,23 +1,23 @@
-import { Position, Direction } from "../../../types";
-import { CellType, DRONE_SPEED } from "../../../const";
+import { Position, Direction } from "../../../types"
+import { CellType, DRONE_SPEED } from "../../../const"
 
 export function getDroneStartPosition(board: string[]): Position | null {
-  let pos: Position | null = null;
+  let pos: Position | null = null
 
   board.some((stringElement, r) => {
-    const row = Array.from(stringElement);
+    const row = Array.from(stringElement)
     return row.some((cell, c) => {
       if (CellType.DRONE === cell) {
         pos = {
           row: r,
           col: c
-        };
+        }
       }
-      return Boolean(pos);
-    });
-  });
+      return Boolean(pos)
+    })
+  })
 
-  return pos;
+  return pos
 }
 
 export function isTransparentCell(cell: string) {
@@ -25,68 +25,74 @@ export function isTransparentCell(cell: string) {
 }
 
 export function isPossibleToMove(board: string[], dronePosition: Position, direction: Direction): boolean{
-  let isPossible = false;
-  const map = board;
+  let isPossible = false
+  const map = board
   
   if (Direction.UP === direction && dronePosition.row > 0) {
-    const cell = map[dronePosition.row - 1][dronePosition.col];
+    const cell = map[dronePosition.row - 1][dronePosition.col]
     if (isTransparentCell(cell)) {
-      isPossible = true;
+      isPossible = true
     }
   } else if (Direction.DOWN === direction && dronePosition.row < map.length - 1) {
-    const cell = map[dronePosition.row + 1][dronePosition.col];
+    const cell = map[dronePosition.row + 1][dronePosition.col]
     if (isTransparentCell(cell)) {
-      isPossible = true;
+      isPossible = true
     }
   } else if (Direction.LEFT === direction && dronePosition.col > 0) {
-    const cell = map[dronePosition.row][dronePosition.col - 1];
+    const cell = map[dronePosition.row][dronePosition.col - 1]
     if (isTransparentCell(cell)) {
-      isPossible = true;
+      isPossible = true
     }
   } else if (Direction.RIGHT === direction && dronePosition.col < map[0].length - 1) {
-    const cell = map[dronePosition.row][dronePosition.col + 1];
+    const cell = map[dronePosition.row][dronePosition.col + 1]
     if (isTransparentCell(cell)) {
-      isPossible = true;
+      isPossible = true
     }
   }
 
-  return isPossible;
+  return isPossible
 }
 
-export function moveDrone(board: string[], dronePosition: Position, direction: Direction): Position | null {
-  let newDronePosition = null;
+export function moveDrone(
+  board: string[],
+  dronePosition: Position,
+  direction: Direction,
+  onMoveCallback: (pos: Position) => void
+): Position | null {
+  let newDronePosition = null
   
   if (isPossibleToMove(board, dronePosition, direction)) {
-    newDronePosition = { ...dronePosition };
-    let isMoving = true;
+    newDronePosition = { ...dronePosition }
+    let isMoving = true
     while(isMoving) {
       switch(direction) {
         case Direction.UP:
-          newDronePosition.row--;
-          break;
+          newDronePosition.row--
+          break
         case Direction.DOWN:
-          newDronePosition.row++;
-          break;
+          newDronePosition.row++
+          break
         case Direction.LEFT:
-          newDronePosition.col--;
-          break;
+          newDronePosition.col--
+          break
         case Direction.RIGHT:
-          newDronePosition.col++;
-          break;
+          newDronePosition.col++
+          break
       }
-      isMoving = isPossibleToMove(board, newDronePosition, direction);
+      onMoveCallback(newDronePosition)
+      isMoving = isPossibleToMove(board, newDronePosition, direction)
     }
   }
 
-  return newDronePosition;
+  return newDronePosition
 }
 
 export function calculateDroneSpeed(dronePosition: Position, newDronePosition: Position) {
-  let speed = 0;
+  let speed = 0
   if (dronePosition.col === newDronePosition.col) {
-    speed = Math.abs(dronePosition.row - newDronePosition.row) * DRONE_SPEED;
+    speed = Math.abs(dronePosition.row - newDronePosition.row) * DRONE_SPEED
   } else {
-    speed = Math.abs(dronePosition.col - newDronePosition.col) * DRONE_SPEED;
+    speed = Math.abs(dronePosition.col - newDronePosition.col) * DRONE_SPEED
   }
-  return speed + "ms";
+  return speed + "ms"
 }

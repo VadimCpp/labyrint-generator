@@ -10,8 +10,8 @@ interface SolverProps {
 }
 
 export default function Solver({ initialLevel, path }: SolverProps) {
-	const drone = useDrone(initialLevel.map)
-  const goal = useGoal(initialLevel.map, () => {})
+	const goal = useGoal(initialLevel.map, () => {})
+  const drone = useDrone(initialLevel.map, goal.updateTarget)
   const [step, setStep] = useState<number>(0)
 
 	useEffect(() => {

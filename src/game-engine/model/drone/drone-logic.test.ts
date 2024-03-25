@@ -96,10 +96,10 @@ describe('moveDrone', () => {
       "_     _",
       "_______",
     ]
-    expect(moveDrone(board, dronePosition, Direction.UP)).toStrictEqual({ row: 1, col: 3 })
-    expect(moveDrone(board, dronePosition, Direction.RIGHT)).toStrictEqual({ row: 3, col: 5 })
-    expect(moveDrone(board, dronePosition, Direction.DOWN)).toStrictEqual({ row: 5, col: 3 })
-    expect(moveDrone(board, dronePosition, Direction.LEFT)).toStrictEqual({ row: 3, col: 1 })
+    expect(moveDrone(board, dronePosition, Direction.UP, () => {})).toStrictEqual({ row: 1, col: 3 })
+    expect(moveDrone(board, dronePosition, Direction.RIGHT, () => {})).toStrictEqual({ row: 3, col: 5 })
+    expect(moveDrone(board, dronePosition, Direction.DOWN, () => {})).toStrictEqual({ row: 5, col: 3 })
+    expect(moveDrone(board, dronePosition, Direction.LEFT, () => {})).toStrictEqual({ row: 3, col: 1 })
   })
 
   
@@ -114,10 +114,10 @@ describe('moveDrone', () => {
       "_     _",
       "_______",
     ]
-    expect(moveDrone(board, dronePosition, Direction.UP)).toStrictEqual(null)
-    expect(moveDrone(board, dronePosition, Direction.RIGHT)).toStrictEqual(null)
-    expect(moveDrone(board, dronePosition, Direction.DOWN)).toStrictEqual(null)
-    expect(moveDrone(board, dronePosition, Direction.LEFT)).toStrictEqual(null)
+    expect(moveDrone(board, dronePosition, Direction.UP, () => {})).toStrictEqual(null)
+    expect(moveDrone(board, dronePosition, Direction.RIGHT, () => {})).toStrictEqual(null)
+    expect(moveDrone(board, dronePosition, Direction.DOWN, () => {})).toStrictEqual(null)
+    expect(moveDrone(board, dronePosition, Direction.LEFT, () => {})).toStrictEqual(null)
   })
 })
 

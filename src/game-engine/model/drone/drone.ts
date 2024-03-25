@@ -3,7 +3,7 @@ import { useState, useCallback, useEffect } from "react";
 import { Position, Direction } from "../../../types";
 import { getDroneStartPosition, moveDrone, calculateDroneSpeed } from "./drone-logic";
 
-export default function useDrone(board: string[]){
+export default function useDrone(board: string[], updateTarget: (position: Position) => void) {
   const [position, setPosition] = useState<Position | null>(null);
   const [direction, setDirection] = useState<Direction | null>(null);
   const [speed, setSpeed] = useState<string | number>("unset");
@@ -33,7 +33,7 @@ export default function useDrone(board: string[]){
 
   const move = useCallback((direction: Direction) => {
     if (!lock && position) {
-      const newDronePosition = moveDrone(board, position, direction);
+      const newDronePosition = moveDrone(board, position, direction, updateTarget);
       if (newDronePosition) {
         // set direction, speed and lock
         setDirection(direction);
@@ -48,7 +48,7 @@ export default function useDrone(board: string[]){
     } else {
       // is not successfull to position
     }
-  }, [position, moveCount, lock, board]);
+  }, [position, moveCount, lock, board, updateTarget]);
 
   return {
     position,

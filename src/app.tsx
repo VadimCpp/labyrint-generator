@@ -28,6 +28,36 @@ function getDroneStartPosition(level: number): null | { row: number; col: number
   return pos;
 }
 
+const customBoard1 = [
+  "_______",
+  "_  f  _",
+  "_f### _",
+  "_ fp=f_",
+  "_==== _",
+  "_  f  _",
+  "_______",
+]
+
+const customBoard2 = [
+  "_______",
+  "_f f f_",
+  "_ # # _",
+  "_ = = _",
+  "_ =p= _",
+  "_f===f_",
+  "_______",
+]
+
+const customBoard3 = [
+  "_______",
+  "_f###f_",
+  "_f=p=f_",
+  "_f=f=f_",
+  "_f=f=f_",
+  "_fffff_",
+  "_______",
+]
+
 function App() {
   let boardClockwise = generateEmptyBoard(10)
   boardClockwise = addCellToBoard(boardClockwise, 1, 1, CellType.DRONE)
@@ -40,6 +70,76 @@ function App() {
   return (
     <main>
       <h1 className="title">Labyrint Generator</h1>
+
+      {/* Let's solve levels 6-7 */}
+      {/* <section className="levels">
+        <h2 className="levels__title">Let's solve levels 6-7</h2>
+        <div className='levels__container labyrint-container'>
+          <div className="labyrint-container__item">
+            <h3 className='labyrint-container__title'>Level {5 + 1}</h3>
+            <Solver
+              initialLevel={{map: LEVELS[5].map, minMoves: 0, minTime: 0}}
+              path={solveLabyrint(LEVELS[5].map)}
+            />
+          </div>
+          <div className="labyrint-container__item">
+            <h3 className='labyrint-container__title'>Level {6 + 1}</h3>
+            <Solver
+              initialLevel={{map: LEVELS[6].map, minMoves: 0, minTime: 0}}
+              path={solveLabyrint(LEVELS[6].map)}
+            />
+          </div>
+        </div>
+      </section> */}
+
+      {/* Let's solve custom levels 5x5 */}
+      <section className="levels">
+        <h2 className="levels__title">Let's solve som custom levels</h2>
+        <div className='levels__container labyrint-container'>
+          <div className="labyrint-container__item">
+            <h3 className='labyrint-container__title'>Custom level 1</h3>
+            <Solver
+              initialLevel={{map: customBoard1, minMoves: 0, minTime: 0}}
+              path={solveLabyrint(customBoard1)}
+            />
+          </div>
+          <div className="labyrint-container__item">
+            <h3 className='labyrint-container__title'>Custom level 2</h3>
+            <Solver
+              initialLevel={{map: customBoard2, minMoves: 0, minTime: 0}}
+              path={solveLabyrint(customBoard2)}
+            />
+          </div>
+          <div className="labyrint-container__item">
+            <h3 className='labyrint-container__title'>Custom level 3</h3>
+            <Solver
+              initialLevel={{map: customBoard3, minMoves: 0, minTime: 0}}
+              path={solveLabyrint(customBoard3)}
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Let's solve levels 4-5 */}
+      <section className="levels">
+        <h2 className="levels__title">Let's solve levels 4-5</h2>
+        <div className='levels__container labyrint-container'>
+          <div className="labyrint-container__item">
+            <h3 className='labyrint-container__title'>Level {3 + 1}</h3>
+            <Solver
+              initialLevel={{map: LEVELS[3].map, minMoves: 0, minTime: 0}}
+              path={solveLabyrint(LEVELS[3].map)}
+            />
+          </div>
+          <div className="labyrint-container__item">
+            <h3 className='labyrint-container__title'>Level {4 + 1}</h3>
+            <Solver
+              initialLevel={{map: LEVELS[4].map, minMoves: 0, minTime: 0}}
+              path={solveLabyrint(LEVELS[4].map)}
+            />
+          </div>
+        </div>
+      </section>
 
       {/* Let's solve levels 1-2 */}
       <section className="levels">
@@ -81,7 +181,7 @@ function App() {
       </section>
 
       {/* Different Size */}
-      <section className="levels">
+      {/*<section className="levels">
         <h2 className="levels__title">Different Size</h2>
         <div className='levels__container labyrint-container'>
           {
@@ -109,7 +209,7 @@ function App() {
             })
           }
         </div>
-      </section>
+      </section>*/}
 
       {/* Classic Labyrint Levels */}
       <section className="levels">
